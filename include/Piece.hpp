@@ -1,3 +1,5 @@
+#pragma once
+
 #include <vector>
 #include "Bitboard.h"
 #include "Action.h"
