@@ -7,7 +7,7 @@ OBJPATH=obj
 SRCPATH=src
 
 chess: src/*.cpp
-	g++ -o build/$@ $^ -Iinclude
+	g++ -o build/$@ $^ -Iinclude -O0 -g
 
 # %.o: $(SRCPATH)/%.cpp
 # 	$(CC) -c -o $(OBJPATH)/$@ $^ $(DEP)
