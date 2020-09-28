@@ -16,7 +16,7 @@ namespace Chess
 			White = 1
 		};
 
-	protected:
+	private:
 		Bitboard m_location;
 		Color m_color;
 
@@ -38,6 +38,9 @@ namespace Chess
 		 * @return The character that represents this piece in chess notation. 
 		 */
 		virtual char get_piece_character() const = 0;
+		
+		Color get_color() const { return m_color; }
+		void set_color(Color color) { m_color = color; }
 
 		const Bitboard& get_location() const { return m_location; }
 		void set_location(Bitboard location)
