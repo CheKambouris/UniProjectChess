@@ -14,4 +14,6 @@ Bitboard Bitboard::inter(const Bitboard &bb) const { return bb.bb & this->bb; }
 
 Bitboard Bitboard::unions(const Bitboard &bb) const { return bb.bb | this->bb; }
 
-bool Bitboard::has_one_bit() const { return true; }
+bool Bitboard::has_one_bit() const { return bb && !(bb & bb-1); }
+
+Bitboard Bitboard::lsb() const { return bb & -bb; }
