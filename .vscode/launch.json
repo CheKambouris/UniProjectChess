@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "preLaunchTask": "build chess debug",
-            "program": "${workspaceFolder}/build/chess",
+            "program": "${workspaceFolder}/build/debug/chess",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

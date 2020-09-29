@@ -4,7 +4,7 @@
         {
             "label": "build chess debug",
             "type": "shell",
-            "command": "make chess",
+            "command": "make BUILD=debug",
             "problemMatcher": [],
             "group": {
                 "kind": "build",
