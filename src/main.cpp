@@ -5,8 +5,12 @@ using namespace Chess;
 
 int main(int argc, char const *argv[])
 {
-    Pawn test_pawn = Pawn(Bitboard(0), Piece::Color::White);
-
-    std::cout << test_pawn.get_piece_character() << std::endl;
+    std::cout << King(Bitboard(0), Piece::Color::White).get_piece_character() << std::endl;
+    std::cout << Queen(Bitboard(0), Piece::Color::White).get_piece_character() << std::endl;
+    std::cout << Pawn(Bitboard(0), Piece::Color::White).get_piece_character() << std::endl;
+    std::cout << Bishop(Bitboard(0), Piece::Color::White).get_piece_character() << std::endl;
+    std::cout << Rook(Bitboard(0), Piece::Color::White).get_piece_character() << std::endl;
+    std::cout << Knight(Bitboard(0), Piece::Color::White).get_piece_character() << std::endl;
+    
     return 0;
 }
