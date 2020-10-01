@@ -27,7 +27,7 @@ namespace Chess
 				throw std::invalid_argument("Passed in 'location' has more than one bit set. ");
 			}
 		}
-		virtual ~Piece();
+		virtual ~Piece() {};
 		
 		/** Get valid moves of the target piece. 
 		 * @param allies A bitboard which contains the location of all allies. 
