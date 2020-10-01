@@ -40,14 +40,14 @@ uint Bitboard::get_column() const {
 	if(!has_one_bit()) {
 		return 0;
 	}
-	return bb % 8;
+	return bitscan_reverse() % 8;
 }
 
 uint Bitboard::get_row() const {
-	if(!bb) {
+	if(!has_one_bit()) {
 		return 0;
 	}
-	return bb / 8;
+	return bitscan_reverse() / 8;
 }
 Bitboard Bitboard::operator!() { return !bb; }
 
