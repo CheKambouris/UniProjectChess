@@ -8,7 +8,7 @@ Bitboard Bitboard::north() const { return bb << 8; }
 
 Bitboard Bitboard::south() const { return bb >> 8; }
 
-Bitboard Bitboard::east(int times = 1) const {
+Bitboard Bitboard::east(int times) const {
 	Bitboard rval = bb << times;
 	if(!has_one_bit() || rval.get_row() != this->get_row()) {
 		return rval;
@@ -17,7 +17,7 @@ Bitboard Bitboard::east(int times = 1) const {
 	}
 }
 
-Bitboard Bitboard::west(int times = 1) const {
+Bitboard Bitboard::west(int times) const {
 	Bitboard rval = bb << times;
 	if(!has_one_bit() || rval.get_row() != this->get_row()) {
 		return rval;
