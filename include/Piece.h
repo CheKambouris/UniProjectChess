@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <stdexcept>
+#include <string>
 #include "Bitboard.h"
 #include "Action.h"
 
@@ -21,13 +22,9 @@ namespace Chess
 		Color m_color;
 
 	public:
-		Piece(Bitboard location, Color color): m_location(location), m_color(color) {
-			if(!location.has_one_bit())
-			{
-				throw std::invalid_argument("Passed in 'location' has more than one bit set. ");
-			}
-		}
-		virtual ~Piece() {};
+		Piece(Bitboard location, Color color);
+
+		virtual ~Piece();
 		
 		/** Get valid moves of the target piece. 
 		 * @param allies A bitboard which contains the location of all allies. 
@@ -41,20 +38,14 @@ namespace Chess
 		 */
 		virtual char get_piece_character() const = 0;
 		
-		Color get_color() const { return m_color; }
-		void set_color(Color color) { m_color = color; }
+		Color get_color() const;
 
-		const Bitboard& get_location() const { return m_location; }
-		void set_location(Bitboard location)
-		{
-			if(location.has_one_bit())
-			{
-				m_location = location;
-			}
-			else
-			{
-				throw std::invalid_argument("Passed in 'location' has more than one bit set. ");
-			}
-		}
+		void set_color(Color color);
+
+		const Bitboard& get_location() const;
+
+		void set_location(Bitboard location);
+
+		std::string get_location_notation() const;
 	};
 } // namespace Chess
