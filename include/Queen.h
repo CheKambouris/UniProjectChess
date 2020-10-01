@@ -4,7 +4,7 @@
 
 namespace Chess
 {
-	class Queen: Piece
+	class Queen: public Piece
 	{
 	public:
 		Queen(Bitboard location, Color color);

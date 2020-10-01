@@ -4,7 +4,7 @@
 
 namespace Chess
 {
-	class King: Piece
+	class King: public Piece
 	{
 	public:
 		King(Bitboard location, Color color);

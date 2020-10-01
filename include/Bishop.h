@@ -4,7 +4,7 @@
 
 namespace Chess
 {
-	class Bishop: Piece
+	class Bishop: public Piece
 	{
 	public:
 		Bishop(Bitboard location, Color color);
