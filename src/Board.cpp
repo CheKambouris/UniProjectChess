@@ -49,5 +49,5 @@ Piece::Color Board::getCurrentTurn() { return current_turn; }
 
 void Board::switchCurrentTurn() 
 { 
-    // current_turn = current_turn * -1;
+    current_turn = (Piece::Color)((int)current_turn * -1);
 }
