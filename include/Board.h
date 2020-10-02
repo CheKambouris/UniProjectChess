@@ -13,7 +13,7 @@ private:
     Piece::Color current_turn;
 public:
     Board();
-    std::vector<std::unique_ptr<Piece>> getBoard();
+    const std::vector<std::unique_ptr<Piece>>& getBoard();
     Piece::Color getCurrentTurn();
     void switchCurrentTurn();
 };

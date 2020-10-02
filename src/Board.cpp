@@ -43,7 +43,7 @@ Board::Board()
 	board.push_back(std::make_unique<Rook>(Rook    (uint64_t(1) << 63, Piece::Color::Black)));
 }
 
-std::vector<std::unique_ptr<Piece>> Board::getBoard() { return board; }
+const std::vector<std::unique_ptr<Piece>>& Board::getBoard() { return board; }
 
 Piece::Color Board::getCurrentTurn() { return current_turn; }
 
