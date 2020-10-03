@@ -3,15 +3,18 @@
 #include <iostream>
 #include <vector>
 #include <memory>
+#include <algorithm>
 
 using namespace Chess;
 
 int main(int argc, char const *argv[])
 {
-	Board pieces = Board();
-
-	for(auto &&piece: pieces.getBoard()) {
-		std::cout << piece->get_location_notation() << std::endl;
+	Board board = Board();
+	Bitboard filled_spaces;
+	
+	for(auto &&p: board.get_pieces()) {
+		filled_spaces+=p->get_location();
 	}
+	std::cout << filled_spaces.serialize_board() << std::endl;
 	return 0;
 }
