@@ -9,8 +9,8 @@ using namespace Chess;
 class Board
 {
 private:
-	std::vector<std::unique_ptr<Piece>> board;
-	Piece::Color current_turn;
+	std::vector<std::unique_ptr<Piece>> m_pieces;
+	Piece::Color m_current_turn;
 public:
 	Board();
 	const std::vector<std::unique_ptr<Piece>>& get_pieces();
