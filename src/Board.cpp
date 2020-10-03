@@ -4,7 +4,7 @@ using namespace Chess;
 
 Board::Board()
 {
-    current_turn = Piece::Color::White;
+	current_turn = Piece::Color::White;
 
 	board.push_back(std::make_unique<Rook>(Rook    (uint64_t(1) << 0, Piece::Color::White)));
 	board.push_back(std::make_unique<Knight>(Knight(uint64_t(1) << 1, Piece::Color::White)));
@@ -43,11 +43,8 @@ Board::Board()
 	board.push_back(std::make_unique<Rook>(Rook    (uint64_t(1) << 63, Piece::Color::Black)));
 }
 
-const std::vector<std::unique_ptr<Piece>>& Board::getBoard() { return board; }
+const std::vector<std::unique_ptr<Piece>>& Board::get_pieces() { return board; }
 
-Piece::Color Board::getCurrentTurn() { return current_turn; }
+Piece::Color Board::get_current_turn() { return current_turn; }
 
-void Board::switchCurrentTurn() 
-{ 
-    current_turn = (Piece::Color)((int)current_turn * -1);
-}
+void Board::switch_current_turn() { current_turn = (Piece::Color)((int)current_turn * -1); }
