@@ -2,6 +2,8 @@
 
 #include <cstdint>
 #include <math.h>
+#include <string>
+#include <bitset>
 
 // As simple wrapper for uint64 for use with 8x8 game boards
 class Bitboard
@@ -34,8 +36,10 @@ public:
 	uint get_column() const;
 	/** @returns The index of the row of the bit in the Bitboard if there is one bit, 0 if there is not one bit. */
 	uint get_row() const;
+	/** @returns The board as a std::string. The string will contain 8 rows separated by line breaks of bits sepparated by spaces ended by a line break. */
+	std::string serialize_board() const;
 	/** @returns This Bitboard but all 1's are now 0's and vice versa. */
 	Bitboard operator!();
-	/** Equivalent to making the Bitboard on the left equal to the intersection of the two Bitboards. */
+	/** Equivalent to making the Bitboard on the left equal to the unions of the two Bitboards. */
 	void operator+=(const Bitboard& other);
 };

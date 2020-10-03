@@ -49,8 +49,23 @@ uint Bitboard::get_row() const {
 	}
 	return bitscan_reverse() / 8;
 }
+
+std::string Bitboard::serialize_board() const {
+	std::string board;
+	std::bitset<64> bits(bb);
+	for (int i = 0; i < (int)bits.size(); ++i) {
+		board += std::to_string(bits[i]);
+		if ((i+1) % 8) {
+			board += ' ';
+		} else {
+			board += '\n';
+		}
+	}
+	return board;
+}
+
 Bitboard Bitboard::operator!() { return !bb; }
 
 void Bitboard::operator+=(const Bitboard& other) {
-	*this = this->inter(other);
+	this->bb = this->unions(other).bb;
 }
