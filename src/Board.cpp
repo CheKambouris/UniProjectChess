@@ -1,5 +1,4 @@
 #include "Board.h"
-#include <iostream>
 
 using namespace Chess;
 
@@ -50,8 +49,9 @@ Piece::Color Board::get_current_turn() { return m_current_turn; }
 
 void Board::switch_current_turn() { m_current_turn = (Piece::Color)((int)m_current_turn * -1); }
 
-void Board::render() 
+std::string Board::render() 
 {
+	std::string rval;
 	std::vector<int> visual_board(64, 0);
 
 	for (auto &&p : m_pieces)
@@ -70,8 +70,12 @@ void Board::render()
 		for (int col = 0; col < 8; col++)
 		{
 			char current_piece = visual_board[(row * 8) + col];
-			std::cout << current_piece << " ";
+			rval += current_piece;
+			rval += ' ';
 		}
-		std::cout << std::endl;
+		if(row < 7) {
+			rval += '\n';
+		}
 	}
+	return rval;
 }

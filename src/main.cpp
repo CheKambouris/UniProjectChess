@@ -18,9 +18,9 @@ int main(int argc, char const *argv[])
 	}
 	std::cout << filled_spaces.serialize_board() << std::endl;
 
-
 	std::cout << "\n\n";
-	board.render();
+	
+	std::cout << board.render() << std::endl;
 
 	return 0;
 }

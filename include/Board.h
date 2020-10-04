@@ -3,6 +3,7 @@
 #include "Pieces.h"
 #include <vector>
 #include <memory>
+#include <string>
 
 using namespace Chess;
 
@@ -16,5 +17,5 @@ public:
 	const std::vector<std::unique_ptr<Piece>>& get_pieces();
 	Piece::Color get_current_turn();
 	void switch_current_turn();
-	void render();
+	std::string render();
 };
