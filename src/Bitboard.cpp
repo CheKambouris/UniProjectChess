@@ -50,7 +50,7 @@ uint Bitboard::get_row() const {
 	return bitscan_reverse() / 8;
 }
 
-std::string Bitboard::serialize_board() const { // I know this function is gross, pls fix it somewhen. 
+std::string Bitboard::to_string() const { // I know this function is gross, pls fix it somewhen. 
 	std::string board;
 	std::bitset<64> bits(bb);
 	for (int i = 0; i < (int)bits.size(); ++i) {

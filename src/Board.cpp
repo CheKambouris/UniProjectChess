@@ -49,7 +49,7 @@ Piece::Color Board::get_current_turn() { return m_current_turn; }
 
 void Board::switch_current_turn() { m_current_turn = (Piece::Color)((int)m_current_turn * -1); }
 
-std::string Board::render() 
+std::string Board::to_string() 
 {
 	std::string rval;
 	std::vector<int> visual_board(64, 0);

@@ -37,7 +37,7 @@ public:
 	/** @returns The index of the row of the bit in the Bitboard if there is one bit, 0 if there is not one bit. */
 	uint get_row() const;
 	/** @returns The board as a std::string. The string will contain 8 rows separated by line breaks of bits sepparated by spaces ended by a line break. */
-	std::string serialize_board() const;
+	std::string to_string() const;
 	/** @returns This Bitboard but all 1's are now 0's and vice versa. */
 	Bitboard operator!();
 	/** Equivalent to making the Bitboard on the left equal to the unions of the two Bitboards. */

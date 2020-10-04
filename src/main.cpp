@@ -16,11 +16,11 @@ int main(int argc, char const *argv[])
 	{
 		filled_spaces += p->get_location();
 	}
-	std::cout << filled_spaces.serialize_board() << std::endl;
+	std::cout << filled_spaces.to_string() << std::endl;
 
 	std::cout << "\n\n";
-	
-	std::cout << board.render() << std::endl;
+
+	std::cout << board.to_string() << std::endl;
 
 	return 0;
 }
