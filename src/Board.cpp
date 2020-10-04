@@ -1,4 +1,5 @@
 #include "Board.h"
+#include <iostream>
 
 using namespace Chess;
 
@@ -48,3 +49,29 @@ const std::vector<std::unique_ptr<Piece>>& Board::get_pieces() { return m_pieces
 Piece::Color Board::get_current_turn() { return m_current_turn; }
 
 void Board::switch_current_turn() { m_current_turn = (Piece::Color)((int)m_current_turn * -1); }
+
+void Board::render() 
+{
+	std::vector<int> visual_board(64, 0);
+
+	for (auto &&p : m_pieces)
+	{
+		int row = p->get_location().get_row();
+		int col = p->get_location().get_column();
+		int current_piece = p->get_piece_character();
+
+		if (current_piece == 0) { current_piece = 'P'; }
+		
+		visual_board[(row * 8) + col] = current_piece;
+	}
+
+	for (int row = 0; row < 8; row++)
+	{
+		for (int col = 0; col < 8; col++)
+		{
+			char current_piece = visual_board[(row * 8) + col];
+			std::cout << current_piece << " ";
+		}
+		std::cout << std::endl;
+	}
+}
