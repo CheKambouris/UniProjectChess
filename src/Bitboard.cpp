@@ -69,3 +69,7 @@ Bitboard Bitboard::operator!() { return !bb; }
 void Bitboard::operator+=(const Bitboard& other) {
 	this->bb = this->unions(other).bb;
 }
+
+bool Bitboard::operator==(const Bitboard& other) {
+	return this->bb == other.bb;
+}

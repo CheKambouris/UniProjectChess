@@ -42,4 +42,6 @@ public:
 	Bitboard operator!();
 	/** Equivalent to making the Bitboard on the left equal to the unions of the two Bitboards. */
 	void operator+=(const Bitboard& other);
+	
+	bool operator==(const Bitboard& other);
 };
