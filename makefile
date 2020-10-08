@@ -28,9 +28,15 @@ CXXFLAGS := ${CXXFLAGS.${COMPILER}} -std=c++14 -Wall -I${INCPATH}
 
 objects := ${patsubst ${SRCPATH}/%.cpp, ${OBJPATH}/%.o, ${wildcard ${SRCPATH}/*.cpp}}
 
+headers := ${INCPATH}/*.h
+
 chess: ${objects}
 	@mkdir -p ${BUILDPATH}
 	${CXX} -o ${BUILDPATH}/$@ $^ ${CXXFLAGS}
+
+test: ${objects} tests/*.cpp
+	${CXX} -o tests/$@ ${filter-out obj/debug/main.o, $^} ${CXXFLAGS}
+
 # The second colon leads to prerequisites. The cpp file must exist for this to be performed in this case... I think. 
 ${objects}: ${OBJPATH}/%.o: ${SRCPATH}/%.cpp
 	@mkdir -p ${OBJPATH}
