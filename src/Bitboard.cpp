@@ -64,12 +64,16 @@ std::string Bitboard::to_string() const { // I know this function is gross, pls 
 	return board;
 }
 
-Bitboard Bitboard::operator!() { return !bb; }
+Bitboard Bitboard::operator!() const { return !bb; }
 
 void Bitboard::operator+=(const Bitboard& other) {
 	this->bb = this->unions(other).bb;
 }
 
-bool Bitboard::operator==(const Bitboard& other) {
+bool Bitboard::operator==(const Bitboard& other) const {
 	return this->bb == other.bb;
+}
+
+bool Bitboard::operator!=(const Bitboard& other) const {
+	return this->bb != other.bb;
 }

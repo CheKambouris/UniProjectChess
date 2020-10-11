@@ -39,9 +39,11 @@ public:
 	/** @returns The board as a std::string. The string will contain 8 rows separated by line breaks of bits sepparated by spaces ended by a line break. */
 	std::string to_string() const;
 	/** @returns This Bitboard but all 1's are now 0's and vice versa. */
-	Bitboard operator!();
+	Bitboard operator!() const;
 	/** Equivalent to making the Bitboard on the left equal to the unions of the two Bitboards. */
 	void operator+=(const Bitboard& other);
-	
-	bool operator==(const Bitboard& other);
+
+	bool operator==(const Bitboard& other) const;
+
+	bool operator!=(const Bitboard& other) const;
 };
