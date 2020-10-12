@@ -34,8 +34,10 @@ chess: ${objects}
 	@mkdir -p ${BUILDPATH}
 	${CXX} -o ${BUILDPATH}/$@ $^ ${CXXFLAGS}
 
-test: ${objects} tests/*.cpp
-	${CXX} -o tests/$@ ${filter-out obj/debug/main.o, $^} ${CXXFLAGS}
+gtest:
+	@mkdir -p build/cmake
+	cmake -Bbuild/cmake .
+	make --directory=build/cmake
 
 # The second colon leads to prerequisites. The cpp file must exist for this to be performed in this case... I think. 
 ${objects}: ${OBJPATH}/%.o: ${SRCPATH}/%.cpp

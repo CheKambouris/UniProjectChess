@@ -23,6 +23,18 @@
                     "ignoreFailures": true
                 }
             ],
+        },
+        {
+            "name": "(gtest) Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "preLaunchTask": "build chess gtest",
+            "program": "${workspaceFolder}/build/cmake/tests/UniProjectChessTests",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false
         }
     ]
 }
