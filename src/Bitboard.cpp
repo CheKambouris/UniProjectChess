@@ -53,14 +53,18 @@ uint Bitboard::get_row() const {
 std::string Bitboard::to_string() const { // I know this function is gross, pls fix it somewhen. 
 	std::string board;
 	std::bitset<64> bits(bb);
+	std::string row;
 	for (int i = 0; i < (int)bits.size(); ++i) {
-		board += std::to_string(bits[i]);
+		row += std::to_string(bits[i]);
 		if ((i + 1) % 8) {
-			board += ' ';
-		} else if (i + 1 < (int)bits.size()) {
-			board += '\n';
+			row += ' ';
+		} else {
+			row += '\n';
+			board.insert(0, row);
+			row.clear();
 		}
 	}
+	board.erase(board.end()-1);
 	return board;
 }
 
