@@ -19,5 +19,5 @@ public:
 	void switch_current_turn();
 	std::string to_string();
 	bool move(std::string from, std::string to);
-	static Bitboard get_bitboard_notation(std::string str_location);
+	Bitboard get_bitboard_notation(std::string str_location);
 };

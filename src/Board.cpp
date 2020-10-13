@@ -86,13 +86,31 @@ bool Board::move(std::string from, std::string to) {
 	std::unique_ptr<Piece>& selected_piece = *std::find_if(m_pieces.begin(), m_pieces.end(),
 		[&from](const std::unique_ptr<Piece>& piece) { return piece->get_location_notation() == from; }).base();
 
+	if (selected_piece)
+	{
+		// check if destination is has a piece in it already
+		std::unique_ptr<Piece>& piece_in_destination = *std::find_if(m_pieces.begin(), m_pieces.end(),
+			[&to](const std::unique_ptr<Piece>& piece) { return piece->get_location_notation() == to; }).base();
+
+		// if so remove piece in destination
+		if (piece_in_destination)
+		{
+			m_pieces.erase(std::remove(m_pieces.begin(), m_pieces.end(), piece_in_destination), m_pieces.end());
+		}
+
+		// move selected p	iece from origin to destination
+		selected_piece->set_location(get_bitboard_notation(to));
+		return true;
+	}
+
 	return false;
 }
+
 Bitboard Board::get_bitboard_notation(std::string str_location) {
 	str_location = str_location.substr(str_location.length()-2);
 
-	int row = (int)str_location[0] - 97;
-	int col = str_location[1];
+	int row = (int)str_location[0] - 'a';
+	int col = (int)str_location[1] - '0';
 
-	return 8 * row + col;
+	return uint64_t(1) << (8 * row + col);
 }
