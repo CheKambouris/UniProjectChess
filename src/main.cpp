@@ -22,12 +22,11 @@ int main(int argc, char const *argv[])
 
 	std::cout << board.to_string() << std::endl;
 
-	board.move("b2", "d2");
+	board.move("b2", "c4");
 
 	std::cout << "\n\n";
 
 	std::cout << board.to_string() << std::endl;
 
 	return 0;
-	
 }

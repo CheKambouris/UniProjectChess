@@ -110,8 +110,8 @@ bool Board::move(std::string from, std::string to) {
 Bitboard Board::get_bitboard_notation(std::string str_location) {
 	str_location = str_location.substr(str_location.length()-2);
 
-	int row = (int)str_location[0] - 'a';
-	int col = str_location[1] - '1';
+	int rank = (int)str_location[0] - 'a';
+	int file = str_location[1] - '1';
 
-	return 1 << (8 * row + col);
+	return 1 << (8 * file + rank);
 }
