@@ -24,5 +24,10 @@ int main(int argc, char const *argv[])
 
 	board.move("b2", "d2");
 
+	std::cout << "\n\n";
+
+	std::cout << board.to_string() << std::endl;
+
 	return 0;
+	
 }

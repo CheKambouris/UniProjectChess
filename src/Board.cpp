@@ -73,6 +73,7 @@ std::string Board::to_string()
 			char current_piece = visual_board[(row * 8) + col];
 			rval += current_piece;
 			rval += ' ';
+			if (current_piece == 0) { rval += ' '; };
 		}
 		if(row < 7) {
 			rval += '\n';
@@ -98,7 +99,7 @@ bool Board::move(std::string from, std::string to) {
 			m_pieces.erase(std::remove(m_pieces.begin(), m_pieces.end(), piece_in_destination), m_pieces.end());
 		}
 
-		// move selected p	iece from origin to destination
+		// move selected piece from origin to destination
 		selected_piece->set_location(get_bitboard_notation(to));
 		return true;
 	}
