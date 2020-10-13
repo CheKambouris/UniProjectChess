@@ -88,3 +88,11 @@ bool Board::move(std::string from, std::string to) {
 
 	return false;
 }
+Bitboard Board::get_bitboard_notation(std::string str_location) {
+	str_location = str_location.substr(str_location.length()-2);
+
+	int row = (int)str_location[0] - 97;
+	int col = str_location[1];
+
+	return 8 * row + col;
+}
