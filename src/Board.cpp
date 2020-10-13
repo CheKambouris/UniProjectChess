@@ -1,4 +1,5 @@
 #include "Board.h"
+#include <algorithm>
 
 using namespace Chess;
 
@@ -78,4 +79,12 @@ std::string Board::to_string()
 		}
 	}
 	return rval;
+}
+
+bool Board::move(std::string from, std::string to) {
+	// check if piece exists on the board
+	std::unique_ptr<Piece>& selected_piece = *std::find_if(m_pieces.begin(), m_pieces.end(),
+		[&from](const std::unique_ptr<Piece>& piece) { return piece->get_location_notation() == from; }).base();
+
+	return false;
 }

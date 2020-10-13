@@ -18,4 +18,5 @@ public:
 	Piece::Color get_current_turn();
 	void switch_current_turn();
 	std::string to_string();
+	bool move(std::string from, std::string to);
 };
