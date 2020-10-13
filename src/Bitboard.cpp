@@ -10,19 +10,19 @@ Bitboard Bitboard::south() const { return bb >> 8; }
 
 Bitboard Bitboard::east(int times) const {
 	Bitboard rval = bb << times;
-	if(!has_one_bit() || rval.get_row() != this->get_row()) {
-		return rval;
-	} else {
+	if (!rval.has_one_bit() || !this->has_one_bit() || rval.get_row() != this->get_row()) {
 		return 0;
+	} else {
+		return rval;
 	}
 }
 
 Bitboard Bitboard::west(int times) const {
-	Bitboard rval = bb << times;
-	if(!has_one_bit() || rval.get_row() != this->get_row()) {
-		return rval;
-	} else {
+	Bitboard rval = bb >> times;
+	if (!rval.has_one_bit() || !this->has_one_bit() || rval.get_row() != this->get_row()) {
 		return 0;
+	} else {
+		return rval;
 	}
 }
 
