@@ -37,8 +37,8 @@ Board::Board()
 	m_pieces.push_back(std::make_unique<Rook>(Rook    (uint64_t(1) << 56, Piece::Color::Black)));
 	m_pieces.push_back(std::make_unique<Knight>(Knight(uint64_t(1) << 57, Piece::Color::Black)));
 	m_pieces.push_back(std::make_unique<Bishop>(Bishop(uint64_t(1) << 58, Piece::Color::Black)));
-	m_pieces.push_back(std::make_unique<King>(King    (uint64_t(1) << 59, Piece::Color::Black)));
-	m_pieces.push_back(std::make_unique<Queen>(Queen  (uint64_t(1) << 60, Piece::Color::Black)));
+	m_pieces.push_back(std::make_unique<Queen>(Queen  (uint64_t(1) << 59, Piece::Color::Black)));
+	m_pieces.push_back(std::make_unique<King>(King    (uint64_t(1) << 60, Piece::Color::Black)));
 	m_pieces.push_back(std::make_unique<Bishop>(Bishop(uint64_t(1) << 61, Piece::Color::Black)));
 	m_pieces.push_back(std::make_unique<Knight>(Knight(uint64_t(1) << 62, Piece::Color::Black)));
 	m_pieces.push_back(std::make_unique<Rook>(Rook    (uint64_t(1) << 63, Piece::Color::Black)));
@@ -52,34 +52,25 @@ void Board::switch_current_turn() { m_current_turn = (Piece::Color)((int)m_curre
 
 std::string Board::to_string() 
 {
-	std::string rval;
-	std::vector<int> visual_board(64, 0);
-
-	for (auto &&p : m_pieces)
-	{
-		int row = p->get_location().get_row();
-		int col = p->get_location().get_column();
-		int current_piece = p->get_piece_character();
-
-		if (current_piece == 0) { current_piece = 'P'; }
-		
-		visual_board[(row * 8) + col] = current_piece;
+	std::string str_board =
+		"               \n"
+		"               \n"
+		"               \n"
+		"               \n"
+		"               \n"
+		"               \n"
+		"               \n"
+		"               ";
+	for(auto &&piece: m_pieces) {
+		int col = piece->get_location().get_column();
+		int row = piece->get_location().get_row();
+		int row_index = 16 * (7 - row);
+		int col_index = col * 2;
+		int index = row_index + col_index;
+		std::string piece_char(1, piece->get_piece_character()? piece->get_piece_character(): 'P');
+		str_board.replace(index, 1, piece_char);
 	}
-
-	for (int row = 0; row < 8; row++)
-	{
-		for (int col = 0; col < 8; col++)
-		{
-			char current_piece = visual_board[(row * 8) + col];
-			rval += current_piece;
-			rval += ' ';
-			if (current_piece == 0) { rval += ' '; };
-		}
-		if(row < 7) {
-			rval += '\n';
-		}
-	}
-	return rval;
+	return str_board;
 }
 
 bool Board::move(std::string from, std::string to) {
@@ -100,7 +91,8 @@ bool Board::move(std::string from, std::string to) {
 		}
 
 		// move selected piece from origin to destination
-		selected_piece->set_location(get_bitboard_notation(to));
+		Bitboard destination_bitboard = get_bitboard_notation(to);
+		selected_piece->set_location(destination_bitboard);
 		return true;
 	}
 
@@ -113,5 +105,7 @@ Bitboard Board::get_bitboard_notation(std::string str_location) {
 	int rank = (int)str_location[0] - 'a';
 	int file = str_location[1] - '1';
 
-	return 1 << (8 * file + rank);
+	Bitboard rval((uint64_t)1 << (8 * file + rank));
+
+	return rval;
 }
