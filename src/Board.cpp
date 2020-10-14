@@ -78,25 +78,21 @@ bool Board::move(std::string from, std::string to) {
 	std::unique_ptr<Piece>& selected_piece = *std::find_if(m_pieces.begin(), m_pieces.end(),
 		[&from](const std::unique_ptr<Piece>& piece) { return piece->get_location_notation() == from; }).base();
 
-	if (selected_piece)
+	if (selected_piece == *m_pieces.end()) return false;
+	// check if destination is has a piece in it already
+	std::unique_ptr<Piece>& piece_in_destination = *std::find_if(m_pieces.begin(), m_pieces.end(),
+		[&to](const std::unique_ptr<Piece>& piece) { return piece->get_location_notation() == to; }).base();
+
+	// if so remove piece in destination
+	if (piece_in_destination != *m_pieces.end())
 	{
-		// check if destination is has a piece in it already
-		std::unique_ptr<Piece>& piece_in_destination = *std::find_if(m_pieces.begin(), m_pieces.end(),
-			[&to](const std::unique_ptr<Piece>& piece) { return piece->get_location_notation() == to; }).base();
-
-		// if so remove piece in destination
-		if (piece_in_destination)
-		{
-			m_pieces.erase(std::remove(m_pieces.begin(), m_pieces.end(), piece_in_destination), m_pieces.end());
-		}
-
-		// move selected piece from origin to destination
-		Bitboard destination_bitboard = get_bitboard_notation(to);
-		selected_piece->set_location(destination_bitboard);
-		return true;
+		m_pieces.erase(std::remove(m_pieces.begin(), m_pieces.end(), piece_in_destination), m_pieces.end());
 	}
 
-	return false;
+	// move selected piece from origin to destination
+	Bitboard destination_bitboard = get_bitboard_notation(to);
+	selected_piece->set_location(destination_bitboard);
+	return true;
 }
 
 Bitboard Board::get_bitboard_notation(std::string str_location) {
