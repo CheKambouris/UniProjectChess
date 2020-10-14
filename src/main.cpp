@@ -25,7 +25,7 @@ int main(int argc, char const *argv[])
 
 	while (1)
 	{
-		std::cout << ">>> ";
+		std::cout << "(" << board.get_current_turn() << "'s turn) >>> ";
 
 		std::getline(std::cin, input);
 
@@ -35,6 +35,8 @@ int main(int argc, char const *argv[])
 		{
 			std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 			std::cout << board.to_string() << std::endl;
+
+			board.switch_current_turn();
 		}
 		else { std::cout << "Invalid move, try again!" << std::endl; }
 	}

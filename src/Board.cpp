@@ -79,6 +79,10 @@ bool Board::move(std::string from, std::string to) {
 		[&from](const std::unique_ptr<Piece>& piece) { return piece->get_location_notation() == from; }).base();
 
 	if (selected_piece == *m_pieces.end()) return false;
+
+	// check if piece belongs to current player
+	if (selected_piece->get_color() != m_current_turn) return false ;
+
 	// check if destination is has a piece in it already
 	std::unique_ptr<Piece>& piece_in_destination = *std::find_if(m_pieces.begin(), m_pieces.end(),
 		[&to](const std::unique_ptr<Piece>& piece) { return piece->get_location_notation() == to; }).base();
