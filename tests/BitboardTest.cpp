@@ -128,3 +128,12 @@ TEST(BitboardTest, EqualsOperator) {
 	EXPECT_TRUE(bb1 == bb2);
 	EXPECT_FALSE(bb1 == Bitboard());
 }
+
+TEST(BitboardTest, NotOperator) {
+	Bitboard bb1(0);
+	Bitboard bb2(1);
+	Bitboard bb1expect(UINT64_MAX);
+	Bitboard bb2expect(UINT64_MAX - 1);
+	EXPECT_EQ(!bb1, bb1expect);
+	EXPECT_EQ(!bb2, bb2expect);
+}
