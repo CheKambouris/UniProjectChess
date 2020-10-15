@@ -68,7 +68,7 @@ std::string Bitboard::to_string() const { // I know this function is gross, pls 
 	return board;
 }
 
-Bitboard Bitboard::operator!() const { return !bb; }
+Bitboard Bitboard::operator!() const { return bb ^ UINT64_MAX; }
 
 void Bitboard::operator+=(const Bitboard& other) {
 	this->bb = this->unions(other).bb;
