@@ -15,9 +15,9 @@ public:
 	Bitboard();
 	Bitboard(uint64_t bitboard);
 	/** @return A copy of the bitboard shifted north. Empty if out of range. */
-	Bitboard north() const;
+	Bitboard north(int times = 1) const;
 	/** @return A copy of the bitboard shifted south. Empty if out of range. */
-	Bitboard south() const;
+	Bitboard south(int times = 1) const;
 	/** @return A copy of the bitboard shifted east. Empty if out of range or if on a different row (If has one bit). */
 	Bitboard east(int times = 1) const;
 	/** @return A copy of the bitboard shifted west. Empty if out of range or if on a different row (If has one bit). */

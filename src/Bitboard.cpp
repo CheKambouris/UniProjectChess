@@ -4,9 +4,9 @@ Bitboard::Bitboard() : bb(0) {}
 
 Bitboard::Bitboard(uint64_t bitboard) : bb(bitboard) {}
 
-Bitboard Bitboard::north() const { return bb << 8; }
+Bitboard Bitboard::north(int times) const { return bb << 8 * times; }
 
-Bitboard Bitboard::south() const { return bb >> 8; }
+Bitboard Bitboard::south(int times) const { return bb >> 8 * times; }
 
 Bitboard Bitboard::east(int times) const {
 	Bitboard rval = bb << times;
