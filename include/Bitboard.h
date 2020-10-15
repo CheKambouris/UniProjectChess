@@ -46,4 +46,6 @@ public:
 	bool operator==(const Bitboard& other) const;
 
 	bool operator!=(const Bitboard& other) const;
+
+	operator uint64_t() const;
 };

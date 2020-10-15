@@ -81,3 +81,7 @@ bool Bitboard::operator==(const Bitboard& other) const {
 bool Bitboard::operator!=(const Bitboard& other) const {
 	return this->bb != other.bb;
 }
+
+Bitboard::operator uint64_t() const {
+	return bb;
+}
