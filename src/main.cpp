@@ -25,7 +25,7 @@ int main(int argc, char const *argv[])
 
 	while (1)
 	{
-		std::cout << "(" << board.get_current_turn() << "'s turn) >>> ";
+		std::cout << "(" << (board.get_current_turn() == Piece::White? "White": "Black") << "'s turn) >>> ";
 
 		std::getline(std::cin, input);
 
