@@ -1,7 +1,23 @@
 #include "Board.h"
 #include <algorithm>
+#include <map>
 
 using namespace Chess;
+
+std::map<std::string, std::wstring> chess_piece_dict = {
+	{"WK", L"\u2654"},
+	{"BK", L"\u265A"},
+	{"WQ", L"\u2655"},
+	{"BQ", L"\u265B"},
+	{"WB", L"\u2657"},
+	{"BB", L"\u265D"},
+	{"WN", L"\u2658"},
+	{"BN", L"\u265F"},
+	{"WR", L"\u2656"},
+	{"BR", L"\u265C"},
+	{"WP", L"\u2659"},
+	{"BP", L"\u265F"},
+};
 
 Board::Board()
 {
@@ -71,6 +87,31 @@ std::string Board::to_string()
 		str_board.replace(index, 1, piece_char);
 	}
 	return str_board;
+}
+std::wstring Board::to_string_unicode() {
+	std::wstring wstr_board =
+		L"               \n"
+		L"               \n"
+		L"               \n"
+		L"               \n"
+		L"               \n"
+		L"               \n"
+		L"               \n"
+		L"               ";
+	for (auto&& piece : m_pieces) {
+		int col = piece->get_location().get_column();
+		int row = piece->get_location().get_row();
+		int row_index = 16 * (7 - row);
+		int col_index = col * 2;
+		int index = row_index + col_index;
+
+		std::string piece_char(1, piece->get_piece_character() ? piece->get_piece_character() : 'P');
+		piece_char.insert(0, std::string(1, piece->get_color() == Piece::White ? 'W' : 'B'));
+		std::wstring piece_symbol = chess_piece_dict[piece_char];
+
+		wstr_board.replace(index, 1, piece_symbol);
+	}
+	return wstr_board;
 }
 
 bool Board::move(std::string from, std::string to) {
