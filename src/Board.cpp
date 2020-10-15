@@ -88,15 +88,28 @@ bool Board::move(std::string from, std::string to) {
 		[&to](const std::unique_ptr<Piece>& piece) { return piece->get_location_notation() == to; }).base();
 
 	// if so remove piece in destination
-	if (piece_in_destination != *m_pieces.end())
-	{
-		m_pieces.erase(std::remove(m_pieces.begin(), m_pieces.end(), piece_in_destination), m_pieces.end());
-	}
 
 	// move selected piece from origin to destination
 	Bitboard destination_bitboard = get_bitboard_notation(to);
-	selected_piece->set_location(destination_bitboard);
-	return true;
+	Bitboard ally_locations;
+	for(auto &&piece: m_pieces) {
+		if(piece->get_color() == selected_piece->get_color()) {
+			ally_locations += piece->get_location();
+		}
+	}
+
+	Bitboard legal_moves = selected_piece->get_moves(ally_locations, 0, std::vector<Action>());
+
+	if (destination_bitboard.inter(legal_moves)) {
+		if (piece_in_destination != *m_pieces.end()) {
+			m_pieces.erase(std::remove(m_pieces.begin(), m_pieces.end(), piece_in_destination), m_pieces.end());
+		}
+		selected_piece->set_location(destination_bitboard);
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 Bitboard Board::get_bitboard_notation(std::string str_location) {
