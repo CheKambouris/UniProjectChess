@@ -128,18 +128,22 @@ bool Board::move(std::string from, std::string to) {
 	std::unique_ptr<Piece>& piece_in_destination = *std::find_if(m_pieces.begin(), m_pieces.end(),
 		[&to](const std::unique_ptr<Piece>& piece) { return piece->get_location_notation() == to; }).base();
 
-	// if so remove piece in destination
 
 	// move selected piece from origin to destination
 	Bitboard destination_bitboard = get_bitboard_notation(to);
 	Bitboard ally_locations;
+	Bitboard enemy_locations;
+	
 	for(auto &&piece: m_pieces) {
 		if(piece->get_color() == selected_piece->get_color()) {
 			ally_locations += piece->get_location();
 		}
+		else {
+			enemy_locations += piece->get_location();
+		}
 	}
 
-	Bitboard legal_moves = selected_piece->get_moves(ally_locations, 0, std::vector<Action>());
+	Bitboard legal_moves = selected_piece->get_moves(ally_locations, enemy_locations, std::vector<Action>());
 
 	if (destination_bitboard.inter(legal_moves)) {
 		if (piece_in_destination != *m_pieces.end()) {
