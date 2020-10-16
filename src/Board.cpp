@@ -117,7 +117,11 @@ std::wstring Board::to_string_unicode() {
 bool Board::move(std::string from, std::string to) {
 	// check if piece exists on the board
 	std::unique_ptr<Piece>& selected_piece = *std::find_if(m_pieces.begin(), m_pieces.end(),
-		[&from](const std::unique_ptr<Piece>& piece) { return piece->get_location_notation() == from; }).base();
+		[&from](const std::unique_ptr<Piece>& piece) { 
+			std::string piecechar(1, piece->get_piece_character());
+			std::string piece_notation = piecechar.c_str() + piece->get_location_notation();
+			return piece_notation == from; 
+		}).base();
 
 	if (selected_piece == *m_pieces.end()) return false;
 
