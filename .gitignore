@@ -1,2 +1,5 @@
+.gitignore
 build
 obj
+.vscode/
+dos2unix.exe
