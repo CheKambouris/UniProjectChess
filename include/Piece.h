@@ -47,5 +47,7 @@ namespace Chess
 		void set_location(Bitboard location);
 
 		std::string get_location_notation() const;
+
+		static Bitboard slide(Bitboard start, Bitboard obstacles, Bitboard enemies, Bitboard(*direction)(Bitboard, int));
 	};
 } // namespace Chess
