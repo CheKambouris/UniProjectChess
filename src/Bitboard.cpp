@@ -4,9 +4,21 @@ Bitboard::Bitboard() : bb(0) {}
 
 Bitboard::Bitboard(uint64_t bitboard) : bb(bitboard) {}
 
-Bitboard Bitboard::north(int times) const { return bb << 8 * times; }
+Bitboard Bitboard::north(int times) const {
+	Bitboard rval = bb << 8 * times;
+	if (!rval.has_one_bit() || !this->has_one_bit() || rval < bb) {
+		return 0;
+	}
+	return rval;
+}
 
-Bitboard Bitboard::south(int times) const { return bb >> 8 * times; }
+Bitboard Bitboard::south(int times) const {
+	Bitboard rval = bb >> 8 * times;
+	if(!rval.has_one_bit() || !this->has_one_bit() || rval > bb) {
+		return 0;
+	}
+	return rval; 
+}
 
 Bitboard Bitboard::east(int times) const {
 	Bitboard rval = bb << times;
