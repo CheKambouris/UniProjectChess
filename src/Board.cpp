@@ -12,7 +12,7 @@ std::map<std::string, std::wstring> chess_piece_dict = {
 	{"WB", L"\u2657"},
 	{"BB", L"\u265D"},
 	{"WN", L"\u2658"},
-	{"BN", L"\u265F"},
+	{"BN", L"\u265E"},
 	{"WR", L"\u2656"},
 	{"BR", L"\u265C"},
 	{"WP", L"\u2659"},
