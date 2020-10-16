@@ -34,17 +34,18 @@ chess: ${objects}
 	@mkdir -p ${BUILDPATH}
 	${CXX} -o ${BUILDPATH}/$@ $^ ${CXXFLAGS}
 
-gtest:
-	@mkdir -p build/cmake
-	cmake -Bbuild/cmake .
-	make --directory=build/cmake
-
 # The second colon leads to prerequisites. The cpp file must exist for this to be performed in this case... I think. 
 ${objects}: ${OBJPATH}/%.o: ${SRCPATH}/%.cpp
 	@mkdir -p ${OBJPATH}
 	${CXX} -c -o $@ $< ${CXXFLAGS}
 # Phony prevents this from being attempted to be built because it's not a file, simply an action. 
 # The "-" before "rm" allows this to execute without throwing error if something doesnt exist. 
-.PHONY: clean
+.PHONY: clean gtest
+
+gtest:
+	@mkdir -p build/cmake
+	-(cmake ../../)
+	make --directory=build/cmake
+
 clean:
 	-rm -r obj build
