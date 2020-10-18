@@ -4,7 +4,7 @@
 
 TEST(KingTest, MoveMethod) {
 	Chess::King w_king(Bitboard(1).east().north(), Chess::Piece::White);
-	Chess::King b_king(1, Chess::Piece::White);
+	Chess::King b_king(1, Chess::Piece::Black);
 	std::vector<Chess::Action> history;
 
 	Bitboard expect1;
