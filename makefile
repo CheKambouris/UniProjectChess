@@ -44,7 +44,7 @@ ${objects}: ${OBJPATH}/%.o: ${SRCPATH}/%.cpp
 
 gtest:
 	@mkdir -p build/cmake
-	-(cd build/cmake && cmake ../../)
+	-(cd build/cmake && cmake ../../ -DCMAKE_BUILD_TYPE=Debug)
 	make --directory=build/cmake
 
 clean:
