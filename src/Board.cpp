@@ -135,8 +135,8 @@ bool Board::move(std::string from, std::string to) {
 
 	// move selected piece from origin to destination
 	Bitboard destination_bitboard = get_bitboard_notation(to);
-	Bitboard ally_locations;
-	Bitboard enemy_locations;
+	Bitboard ally_locations = get_team_locations(selected_piece->get_color());
+	Bitboard enemy_locations = get_team_locations(selected_piece->get_color());
 	
 	for(auto &&piece: m_pieces) {
 		if(piece->get_color() == selected_piece->get_color()) {
@@ -169,5 +169,28 @@ Bitboard Board::get_bitboard_notation(std::string str_location) {
 
 	Bitboard rval((uint64_t)1 << (8 * file + rank));
 
+	return rval;
+}
+
+Bitboard Board::get_team_locations(Piece::Color color) {
+	Bitboard rval;
+	for (auto&& piece : m_pieces) {
+		if (piece->get_color() == color) {
+			rval += piece->get_location();
+		}
+	}
+}
+
+Bitboard Board::get_team_moves(Piece::Color color) {
+	Bitboard rval;
+	for(auto &&piece: m_pieces) {
+		if(piece->get_color() == color) {
+			rval += piece->get_moves(
+				get_team_locations(color), 
+				get_team_locations((Piece::Color)-color), 
+				std::vector<Action>()
+			);
+		}
+	}
 	return rval;
 }
