@@ -173,24 +173,25 @@ Bitboard Board::get_bitboard_notation(std::string str_location) {
 }
 
 Bitboard Board::get_team_locations(Piece::Color color) {
-	Bitboard rval;
+	Bitboard team_locations;
 	for (auto&& piece : m_pieces) {
 		if (piece->get_color() == color) {
-			rval += piece->get_location();
+			team_locations += piece->get_location();
 		}
 	}
+	return team_locations;
 }
 
 Bitboard Board::get_team_moves(Piece::Color color) {
-	Bitboard rval;
+	Bitboard team_moves;
 	for(auto &&piece: m_pieces) {
 		if(piece->get_color() == color) {
-			rval += piece->get_moves(
+			team_moves += piece->get_moves(
 				get_team_locations(color), 
 				get_team_locations((Piece::Color)-color), 
 				std::vector<Action>()
 			);
 		}
 	}
-	return rval;
+	return team_moves;
 }
