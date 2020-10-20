@@ -14,6 +14,7 @@ private:
 public:
 	Bitboard();
 	Bitboard(uint64_t bitboard);
+	Bitboard(uint8_t x, uint8_t y);
 	/** @return A copy of the bitboard shifted north. Empty if out of range. */
 	Bitboard north(int times = 1) const;
 	/** @return A copy of the bitboard shifted south. Empty if out of range. */

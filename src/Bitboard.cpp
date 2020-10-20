@@ -1,8 +1,18 @@
 #include "Bitboard.h"
+#include <iostream>
 
 Bitboard::Bitboard() : bb(0) {}
 
 Bitboard::Bitboard(uint64_t bitboard) : bb(bitboard) {}
+
+Bitboard::Bitboard(uint8_t x, uint8_t y) {
+	bb = 0;
+	if(x < 8 && y < 8) {
+		bb = 1;
+		bb = bb << x;
+		bb = bb << 8*y;
+	}
+}
 
 Bitboard Bitboard::north(int times) const {
 	Bitboard rval = bb << 8 * times;
