@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include <stdexcept>
+#include <functional>
 #include <string>
 #include "Bitboard.h"
 #include "Action.h"
@@ -48,6 +48,6 @@ namespace Chess
 
 		std::string get_location_notation() const;
 
-		static Bitboard slide(Bitboard start, Bitboard obstacles, Bitboard enemies, Bitboard(*direction)(Bitboard, int));
+		static Bitboard slide(Bitboard start, Bitboard obstacles, Bitboard enemies, int8_t step_x, int8_t step_y);
 	};
 } // namespace Chess

@@ -34,11 +34,21 @@ std::string Piece::get_location_notation() const {
 	return loc;
 }
 
-Bitboard Piece::slide(Bitboard start, Bitboard obstacles, Bitboard enemies, Bitboard(*direction)(Bitboard, int)) {
+Bitboard Piece::slide(Bitboard start, Bitboard obstacles, Bitboard enemies, int8_t step_x, int8_t step_y) {
 	Bitboard rval;
-	for(int i = 1; direction(start, i).inter(!obstacles); ++i) {
-		rval += direction(start, i);
-		if (direction(start, i).inter(enemies)) break;
+	Bitboard current_location =
+		Bitboard(
+			start.get_column() + step_x,
+			start.get_row() + step_y
+		).inter(!obstacles);
+	for(int i = 1; current_location; ++i) {
+		rval += current_location;
+		if (current_location.inter(enemies)) break;
+		current_location =
+			Bitboard(
+				start.get_column() + i * step_x,
+				start.get_row() + i * step_y
+			).inter(!obstacles);
 	}
 	return rval;
 }
