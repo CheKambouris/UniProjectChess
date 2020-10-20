@@ -11,6 +11,8 @@ TEST(BitboardTest, NorthProperty) {
 	EXPECT_EQ(bb1.north(), bb2);
 	Bitboard bb3 = Bitboard(1 << 62);
 	EXPECT_EQ(bb3, Bitboard(0));
+	Bitboard bb4 = Bitboard((uint64_t)1 << 8 * 17);
+	EXPECT_EQ(bb4, Bitboard(0));
 }
 
 TEST(BitboardTest, SouthProperty) {
