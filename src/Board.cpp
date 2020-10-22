@@ -140,7 +140,7 @@ bool Board::move(std::string from, std::string to) {
 	if (selected_piece == *next_move.m_pieces.end()) return false;
 
 	// check if piece belongs to current player
-	if (selected_piece->get_color() != next_move.m_current_turn) return false ;
+	if (selected_piece->get_color() != next_move.m_current_turn) return false;
 
 	// check if destination is has a piece in it already
 	std::unique_ptr<Piece>& piece_in_destination = *std::find_if(next_move.m_pieces.begin(), next_move.m_pieces.end(),
@@ -157,7 +157,16 @@ bool Board::move(std::string from, std::string to) {
 	if (destination_bitboard.inter(legal_moves) == Bitboard(0)) 
 		return false;
 
+	// need to figure out a way to prevent extra characters, this doens't seem to help
+	// if (from.length() > 3 || to.length() > 4)
+	// {
+	// 	return false;
+	// }
+	
 	if (piece_in_destination != *m_pieces.end()) {
+		// if (to.at(0) != 'x' || to.at(1) != 'x')
+		// 	return false;
+
 		next_move.m_pieces.erase(std::remove(
 				next_move.m_pieces.begin(), 
 				next_move.m_pieces.end(), 

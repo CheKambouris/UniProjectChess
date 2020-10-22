@@ -1,0 +1,25 @@
+d2 d4
+d7 d5
+e2 e4
+d5 e4
+f2 f3
+Kg8 Kf6
+Kb3 Kc3
+Bc8 Bf5
+Kc3 Ke4
+Kf6 Ke4
+f3 e4
+Bf5 Be4
+Bg1 Bf2
+e7 e6
+Bc1 Be3
+Kb8 Kd7
+c2 c3
+Bf8 Bd6
+Bf1 Bd3
+Be4 Bd3
+Qd1 Qd3
+Qd8 Qf6
+Qd3 Qe2
+Qf6 Qg6
+quit
