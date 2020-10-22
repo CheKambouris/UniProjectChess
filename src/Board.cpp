@@ -203,6 +203,7 @@ Bitboard Board::get_team_moves(Piece::Color color) {
 
 Board Board::operator=(const Board& other) const {
 	Board new_board;
+	new_board.m_current_turn = other.m_current_turn;
 	for (auto&& piece : other.m_pieces) {
 		new_board.m_pieces.push_back(std::unique_ptr<Piece>(piece->clone()));
 	}
