@@ -11,6 +11,7 @@ namespace Chess {
 	private:
 		std::vector<std::unique_ptr<Piece>> m_pieces;
 		Piece::Color m_current_turn;
+		void set_this_to_board(const Board& board);
 	public:
 		Board();
 		Board(const Board&);
