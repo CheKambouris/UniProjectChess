@@ -49,5 +49,7 @@ namespace Chess
 		std::string get_location_notation() const;
 
 		static Bitboard slide(Bitboard start, Bitboard obstacles, Bitboard enemies, int8_t step_x, int8_t step_y);
+
+		virtual Piece* clone() = 0;
 	};
 } // namespace Chess

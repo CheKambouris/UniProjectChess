@@ -24,3 +24,7 @@ char Pawn::get_piece_character() const
 {
 	return '\0';
 }
+
+Piece* Pawn::clone() {
+	return new Pawn(*this);
+}

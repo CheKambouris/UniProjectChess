@@ -22,3 +22,7 @@ Bitboard Queen::get_moves(Bitboard allies, Bitboard enemies, const std::vector<A
 char Queen::get_piece_character() const {
 	return 'Q';
 }
+
+Piece* Queen::clone() {
+	return new Queen(*this);
+}

@@ -20,3 +20,7 @@ Bitboard King::get_moves(Bitboard allies, Bitboard enemies, const std::vector<Ac
 char King::get_piece_character() const {
 	return 'K';
 }
+
+Piece* King::clone() {
+	return new King(*this);
+}

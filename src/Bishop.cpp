@@ -16,3 +16,7 @@ Bitboard Bishop::get_moves(Bitboard allies, Bitboard enemies, const std::vector<
 char Bishop::get_piece_character() const {
 	return 'B';
 }
+
+Piece* Bishop::clone() {
+	return new Bishop(*this);
+}

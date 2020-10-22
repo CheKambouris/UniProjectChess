@@ -16,3 +16,7 @@ Bitboard Rook::get_moves(Bitboard allies, Bitboard enemies, const std::vector<Ac
 char Rook::get_piece_character() const {
 	return 'R';
 }
+
+Piece* Rook::clone() {
+	return new Rook(*this);
+}
