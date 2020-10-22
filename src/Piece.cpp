@@ -4,7 +4,7 @@ using namespace Chess;
 
 Piece::Piece(Bitboard location, Color color): m_location(location), m_color(color) {
 	if(!location.has_one_bit()) {
-		throw std::invalid_argument("Passed in 'location' has more than one bit set. ");
+		throw std::invalid_argument("Passed in 'location' does not have exactly one bit set. ");
 	}
 }
 
