@@ -13,6 +13,8 @@ namespace Chess {
 		Piece::Color m_current_turn;
 	public:
 		Board();
+		Board(const Board&);
+		void init();
 		const std::vector<std::unique_ptr<Piece>>& get_pieces();
 		Piece::Color get_current_turn();
 		void switch_current_turn();
@@ -22,5 +24,6 @@ namespace Chess {
 		Bitboard get_team_moves(Piece::Color color);
 		Bitboard get_team_locations(Piece::Color color);
 		static Bitboard get_bitboard_notation(std::string str_location);
+		Board operator=(const Board& other) const;
 	};
 }
