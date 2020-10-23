@@ -1,5 +1,5 @@
 f2 f4
 e7 e6
 g2 g4
-Qd8 Qh4
+Qd8 h4
 quit
