@@ -47,7 +47,8 @@ namespace Chess
 		void set_location(Bitboard location);
 
 		std::string get_location_notation() const;
-
+		/** @returns A bitboard where every bit is set along a line in the direction defined by step_x and step_y
+		 * stopping BEFORE a bit in obstacles bitboard or stopping ON a bit in the enemies bitboard */
 		static Bitboard slide(Bitboard start, Bitboard obstacles, Bitboard enemies, int8_t step_x, int8_t step_y);
 
 		virtual Piece* clone() = 0;
