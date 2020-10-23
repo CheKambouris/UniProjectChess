@@ -17,17 +17,15 @@ const std::string COMMANDS =
 "instructions: Shows the same instructions that are shown in the beginning of the game.\n"
 "help: Shows this message. ";
 
-
-const std::string INSTRUCTIONS = 
-"This is a chess game that utilises something based on Algebraic Chess Notation for input\n"
-"In order to move a piece, selected the piece by declaring its character, then its location "
-"(eg: Bishop at b1 would be Bb1) note that it is case sensitive. Then put in the location\n"
-"Once you have constructed your move command, simply press enter. (Example command: Ra1 a7)\n"
-"When taking pieces, don't put the piece character that you're taking. "
-"When moving a pawn, they do not have a piece character. Just use the location. \n"
-"When checkmated, you must give up as the game won't end for you. Type \"help\" for commands\n"
-"Piece Characters:\n"
-"King: K, Queen: Q, Bishop: B, Knight: K, Rook: R";
+const std::string INSTRUCTIONS =
+"INSTRUCTIONS - The following chess game can be interfaced using "
+"command-line input, following algebraic chess notation. As such, "
+"pieces can be moved by first typing their location (eg. Bishop at b1 would be Bb1) "
+"and then destination on the board (a full move command would look like Bb1 c4). \n"
+"Do not put the piece character of the piece you are taking in front of the location. "
+"(eg. instead of doing Ba1 Bc3, just write Ba1 c3)\n"
+"Note that this is case sensitive. To identify pieces, the following notation is used:\n"
+"King: K, Queen: Q, Bishop: B, Knight: K, Rook: R, Pawn: No char, just use location";
 
 int main(int argc, char const *argv[])
 {
