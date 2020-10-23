@@ -134,7 +134,7 @@ bool Board::move(std::string move) {
 	auto match_from = 	std::regex_search(move, from, 	std::regex("^[KQBNR]?[a-h][1-8]"));
 	auto match_to = 	std::regex_search(move, to, 	std::regex("[a-h][1-8]$"));
 	if (!match_from || !match_to) {
-			m_move_error = "Move command is incorrect. ";
+			m_move_error = "Move command is incorrect! ";
 			return false;
 	}
 
@@ -148,12 +148,12 @@ bool Board::move(std::string move) {
 		}).base();
 
 	if (selected_piece == *next_move.m_pieces.end()) {
-		m_move_error = "The piece you are trying to move does not exist. ";
+		m_move_error = "The piece you are trying to move does not exist! ";
 		return false;
 	}
 	// check if piece belongs to current player
 	if (selected_piece->get_color() != next_move.m_current_turn) {
-		m_move_error = "You do not own that piece. ";
+		m_move_error = "You do not own that piece! ";
 		return false;
 	}
 
@@ -170,7 +170,7 @@ bool Board::move(std::string move) {
 	Bitboard legal_moves = selected_piece->get_moves(ally_locations, enemy_locations, std::vector<Action>());
 
 	if (destination_bitboard.inter(legal_moves) == Bitboard(0)) {
-		m_move_error = "That is not a legal move for the specified piece. ";
+		m_move_error = "That is not a legal move for the specified piece! ";
 		return false;
 	}
 	selected_piece->set_location(destination_bitboard);
@@ -191,7 +191,7 @@ bool Board::move(std::string move) {
 		).base();
 
 	if(get_team_moves((Piece::Color)-m_current_turn).inter(ally_king->get_location())) {
-		m_move_error = "Your king is in check after you move that piece. ";
+		m_move_error = "Your king is in check after you move that piece! ";
 		return false;
 	}
 	set_this_to_board(next_move);

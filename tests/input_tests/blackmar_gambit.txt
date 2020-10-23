@@ -7,10 +7,7 @@ Ng8 Nf6
 Nb1 Nc3
 Bc8 Bf5
 Nc3 Ne4
-c7 c5
-f3 e4
 Bf5 Be4
-
 f3 e4
 Nf6 Ne4
 d4 d5
@@ -22,5 +19,6 @@ Bf8 Bd6
 Bf1 Bd3
 Qd8 Qf6
 Qd1 Qf3
-e4 d5
+Ke8 Ke7
+Ke1 Kf1
 quit
