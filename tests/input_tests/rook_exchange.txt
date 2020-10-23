@@ -1,0 +1,10 @@
+a2 a4
+b7 b5
+a4 b5
+Nb8 Nc6
+b5 b6
+Nc6 Nb8
+Ra1 Ra7
+Ra8 Ra7
+b6 a7
+quit
