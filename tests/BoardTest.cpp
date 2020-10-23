@@ -1,6 +1,6 @@
 #include "Board.h"
 #include <gtest/gtest.h>
-
+// Note: move is tested in the .sh test in input_tests
 TEST(BoardTest, GetBitboardFromNotation) {
 	Bitboard result1 = Chess::Board::get_bitboard_notation("a1");
 	Bitboard expect1 = Bitboard(1);
