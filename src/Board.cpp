@@ -139,7 +139,6 @@ bool Board::move(std::string move) {
 	}
 
 	Board next_move = *this;
-	// check if piece exists on the board
 	std::unique_ptr<Piece>& selected_piece = *std::find_if(next_move.m_pieces.begin(), next_move.m_pieces.end(),
 		[&from](const std::unique_ptr<Piece>& piece) { 
 			std::string piecechar(1, piece->get_piece_character());
@@ -147,6 +146,7 @@ bool Board::move(std::string move) {
 			return piece_notation == from.str(); 
 		}).base();
 
+	// check if selected piece exists on the board
 	if (selected_piece == *next_move.m_pieces.end()) {
 		m_move_error = "The piece you are trying to move does not exist! ";
 		return false;
@@ -157,12 +157,11 @@ bool Board::move(std::string move) {
 		return false;
 	}
 
-	// check if destination is has a piece in it already
+	// check if destination has a piece in it already
 	std::unique_ptr<Piece>& piece_in_destination = *std::find_if(next_move.m_pieces.begin(), next_move.m_pieces.end(),
 		[&to](const std::unique_ptr<Piece>& piece) { return piece->get_location_notation() == to.str(); }).base();
 
 
-	// move selected piece from origin to destination
 	Bitboard destination_bitboard = get_bitboard_notation(to.str());
 	Bitboard ally_locations = get_team_locations(selected_piece->get_color());
 	Bitboard enemy_locations = get_team_locations((Piece::Color)-selected_piece->get_color());
@@ -173,6 +172,7 @@ bool Board::move(std::string move) {
 		m_move_error = "That is not a legal move for the specified piece! ";
 		return false;
 	}
+	// move selected piece from origin to destination
 	selected_piece->set_location(destination_bitboard);
 	
 	if (piece_in_destination != *m_pieces.end()) {
@@ -182,7 +182,7 @@ bool Board::move(std::string move) {
 				piece_in_destination
 			), next_move.m_pieces.end());
 	}
-
+	// check for if the King will be in check and therefore be an invalid move. 
 	auto& ally_king = *std::find_if(next_move.m_pieces.begin(), next_move.m_pieces.end(),
 		[&](const std::unique_ptr<Piece>& piece) { 
 			return piece->get_piece_character() == 'K' && 
