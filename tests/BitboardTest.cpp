@@ -7,19 +7,20 @@
 
 TEST(BitboardTest, NorthProperty) {
 	Bitboard bb1 = Bitboard(1);
-	Bitboard bb2 = Bitboard(1 << 8);
-	EXPECT_EQ(bb1.north(), bb2);
-	Bitboard bb3 = Bitboard(1 << 62);
-	EXPECT_EQ(bb3, Bitboard(0));
+	Bitboard bb1_north = Bitboard(1 << 8);
+	EXPECT_EQ(bb1.north(), bb1_north);
+	Bitboard overflowed_bb = Bitboard((uint64_t)1 << 64);
+	EXPECT_EQ(overflowed_bb, Bitboard(0));
 	Bitboard bb4 = Bitboard((uint64_t)1 << 8 * 17);
 	EXPECT_EQ(bb4, Bitboard(0));
 }
 
 TEST(BitboardTest, SouthProperty) {
-	Bitboard bb1 = Bitboard(1 << 8);
-	Bitboard bb2 = Bitboard(1);
-	EXPECT_EQ(bb1.south(), bb2);
-	EXPECT_EQ(bb2.south(), Bitboard(0));
+	Bitboard bb1 = Bitboard(0, 1);
+	Bitboard bb1_south = Bitboard(0, 0);
+	EXPECT_EQ(bb1.south(), bb1_south);
+	// Check underflow
+	EXPECT_EQ(bb1_south.south(), Bitboard(0));
 }
 
 TEST(BitboardTest, EastProperty) {
@@ -46,15 +47,15 @@ TEST(BitboardTest, WestProperty) {
 TEST(BitboardTest, InterMethod) {
 	Bitboard bb1 = Bitboard(0b11101);
 	Bitboard bb2 = Bitboard(0b01010);
-	Bitboard bb3 = Bitboard(0b01000);
-	EXPECT_EQ(bb1.inter(bb2), bb3);
+	Bitboard expect = Bitboard(0b01000);
+	EXPECT_EQ(bb1.inter(bb2), expect);
 }
 
 TEST(BitboardTest, UnionsMethod) {
 	Bitboard bb1 = Bitboard(0b11101);
 	Bitboard bb2 = Bitboard(0b01010);
-	Bitboard bb3 = Bitboard(0b11111);
-	EXPECT_EQ(bb1.unions(bb2), bb3);
+	Bitboard expect = Bitboard(0b11111);
+	EXPECT_EQ(bb1.unions(bb2), expect);
 }
 
 TEST(BitboardTest, HasOneBitProperty) {
@@ -100,9 +101,9 @@ TEST(BitboardTest, GetColumnProperty) {
 }
 
 TEST(BitboardTest, GetRowProperty) {
-	Bitboard bb1 = Bitboard(1);
-	Bitboard bb2 = Bitboard(1 << 8);
-	Bitboard bb3 = Bitboard(1 << 16);
+	Bitboard bb1 = Bitboard(0, 0);
+	Bitboard bb2 = Bitboard(0, 1);
+	Bitboard bb3 = Bitboard(0, 2);
 	Bitboard bb4 = Bitboard(0b000010001);
 	EXPECT_EQ(bb1.get_row(), 0);
 	EXPECT_EQ(bb2.get_row(), 1);
