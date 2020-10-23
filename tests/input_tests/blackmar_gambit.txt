@@ -3,23 +3,24 @@ d7 d5
 e2 e4
 d5 e4
 f2 f3
-Kg8 Kf6
-Kb3 Kc3
+Ng8 Nf6
+Nb1 Nc3
 Bc8 Bf5
-Kc3 Ke4
-Kf6 Ke4
+Nc3 Ne4
+c7 c5
 f3 e4
 Bf5 Be4
-Bg1 Bf2
+
+f3 e4
+Nf6 Ne4
+d4 d5
 e7 e6
 Bc1 Be3
-Kb8 Kd7
+Nb8 Nd7
 c2 c3
 Bf8 Bd6
 Bf1 Bd3
-Be4 Bd3
-Qd1 Qd3
 Qd8 Qf6
-Qd3 Qe2
-Qf6 Qg6
+Qd1 Qf3
+e4 d5
 quit
