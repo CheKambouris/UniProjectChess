@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Pieces.h"
+#include "Action.h"
 #include <vector>
 #include <memory>
 #include <string>
@@ -9,6 +10,8 @@ namespace Chess {
 	class Board
 	{
 	private:
+		// m_move_history is unused but can be used if En passant is implemented. 
+		std::vector<Action> m_move_history;
 		std::vector<std::unique_ptr<Piece>> m_pieces;
 		Piece::Color m_current_turn;
 		std::string m_move_error;
