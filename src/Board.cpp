@@ -166,7 +166,11 @@ bool Board::move(std::string move) {
 	Bitboard ally_locations = get_team_locations(selected_piece->get_color());
 	Bitboard enemy_locations = get_team_locations((Piece::Color)-selected_piece->get_color());
 
-	Bitboard legal_moves = selected_piece->get_moves(ally_locations, enemy_locations, std::vector<Action>());
+	Bitboard legal_moves = selected_piece->get_moves(
+		ally_locations, 
+		enemy_locations, 
+		m_move_history
+	);
 
 	if (destination_bitboard.inter(legal_moves) == Bitboard(0)) {
 		m_move_error = "That is not a legal move for the specified piece! ";
@@ -226,7 +230,7 @@ Bitboard Board::get_team_moves(Piece::Color color) const {
 			team_moves += piece->get_moves(
 				get_team_locations(color), 
 				get_team_locations((Piece::Color)-color), 
-				std::vector<Action>()
+				m_move_history
 			);
 		}
 	}
