@@ -1,6 +1,7 @@
 #include "Board.h"
 #include <algorithm>
 #include <map>
+#include <regex>
 
 using namespace Chess;
 
@@ -73,14 +74,13 @@ void Board::set_this_to_board(const Board& board) {
 	}
 }
 
-const std::vector<std::unique_ptr<Piece>>& Board::get_pieces() { return m_pieces; }
+const std::vector<std::unique_ptr<Piece>>& Board::get_pieces() const { return m_pieces; }
 
-Piece::Color Board::get_current_turn() { return m_current_turn; }
+Piece::Color Board::get_current_turn() const { return m_current_turn; }
 
 void Board::switch_current_turn() { m_current_turn = (Piece::Color)((int)m_current_turn * -1); }
 
-std::string Board::to_string() 
-{
+std::string Board::to_string() const {
 	std::string str_board =
 		"               \n"
 		"               \n"
@@ -101,7 +101,7 @@ std::string Board::to_string()
 	}
 	return str_board;
 }
-std::wstring Board::to_string_unicode() {
+std::wstring Board::to_string_unicode() const {
 	std::wstring wstr_board =
 		L"               \n"
 		L"               \n"
@@ -127,53 +127,61 @@ std::wstring Board::to_string_unicode() {
 	return wstr_board;
 }
 
-bool Board::move(std::string from, std::string to) {
+bool Board::move(std::string move) {
+	// Input validation
+	std::smatch from;
+	std::smatch to;
+	auto match_from = 	std::regex_search(move, from, 	std::regex("^[KQBNR]?[a-h][1-8]"));
+	auto match_to = 	std::regex_search(move, to, 	std::regex("[a-h][1-8]$"));
+	if (!match_from || !match_to) {
+			m_move_error = "Move command is incorrect. ";
+			return false;
+	}
+
 	Board next_move = *this;
 	// check if piece exists on the board
 	std::unique_ptr<Piece>& selected_piece = *std::find_if(next_move.m_pieces.begin(), next_move.m_pieces.end(),
 		[&from](const std::unique_ptr<Piece>& piece) { 
 			std::string piecechar(1, piece->get_piece_character());
 			std::string piece_notation = piecechar.c_str() + piece->get_location_notation();
-			return piece_notation == from; 
+			return piece_notation == from.str(); 
 		}).base();
 
-	if (selected_piece == *next_move.m_pieces.end()) return false;
-
+	if (selected_piece == *next_move.m_pieces.end()) {
+		m_move_error = "The piece you are trying to move does not exist. ";
+		return false;
+	}
 	// check if piece belongs to current player
-	if (selected_piece->get_color() != next_move.m_current_turn) return false;
+	if (selected_piece->get_color() != next_move.m_current_turn) {
+		m_move_error = "You do not own that piece. ";
+		return false;
+	}
 
 	// check if destination is has a piece in it already
 	std::unique_ptr<Piece>& piece_in_destination = *std::find_if(next_move.m_pieces.begin(), next_move.m_pieces.end(),
-		[&to](const std::unique_ptr<Piece>& piece) { return piece->get_location_notation() == to; }).base();
+		[&to](const std::unique_ptr<Piece>& piece) { return piece->get_location_notation() == to.str(); }).base();
 
 
 	// move selected piece from origin to destination
-	Bitboard destination_bitboard = get_bitboard_notation(to);
+	Bitboard destination_bitboard = get_bitboard_notation(to.str());
 	Bitboard ally_locations = get_team_locations(selected_piece->get_color());
 	Bitboard enemy_locations = get_team_locations((Piece::Color)-selected_piece->get_color());
 
 	Bitboard legal_moves = selected_piece->get_moves(ally_locations, enemy_locations, std::vector<Action>());
 
-	if (destination_bitboard.inter(legal_moves) == Bitboard(0)) 
+	if (destination_bitboard.inter(legal_moves) == Bitboard(0)) {
+		m_move_error = "That is not a legal move for the specified piece. ";
 		return false;
-
-	// need to figure out a way to prevent extra characters, this doens't seem to help
-	// if (from.length() > 3 || to.length() > 4)
-	// {
-	// 	return false;
-	// }
+	}
+	selected_piece->set_location(destination_bitboard);
 	
 	if (piece_in_destination != *m_pieces.end()) {
-		// if (to.at(0) != 'x' || to.at(1) != 'x')
-		// 	return false;
-
 		next_move.m_pieces.erase(std::remove(
 				next_move.m_pieces.begin(), 
 				next_move.m_pieces.end(), 
 				piece_in_destination
 			), next_move.m_pieces.end());
 	}
-	selected_piece->set_location(destination_bitboard);
 
 	auto& ally_king = *std::find_if(next_move.m_pieces.begin(), next_move.m_pieces.end(),
 		[&](const std::unique_ptr<Piece>& piece) { 
@@ -183,6 +191,7 @@ bool Board::move(std::string from, std::string to) {
 		).base();
 
 	if(get_team_moves((Piece::Color)-m_current_turn).inter(ally_king->get_location())) {
+		m_move_error = "Your king is in check after you move that piece. ";
 		return false;
 	}
 	set_this_to_board(next_move);
@@ -200,7 +209,7 @@ Bitboard Board::get_bitboard_notation(std::string str_location) {
 	return rval;
 }
 
-Bitboard Board::get_team_locations(Piece::Color color) {
+Bitboard Board::get_team_locations(Piece::Color color) const {
 	Bitboard team_locations;
 	for (auto&& piece : m_pieces) {
 		if (piece->get_color() == color) {
@@ -210,7 +219,7 @@ Bitboard Board::get_team_locations(Piece::Color color) {
 	return team_locations;
 }
 
-Bitboard Board::get_team_moves(Piece::Color color) {
+Bitboard Board::get_team_moves(Piece::Color color) const {
 	Bitboard team_moves;
 	for(auto &&piece: m_pieces) {
 		if(piece->get_color() == color) {
@@ -222,6 +231,10 @@ Bitboard Board::get_team_moves(Piece::Color color) {
 		}
 	}
 	return team_moves;
+}
+
+std::string Board::get_move_error() const {
+	return m_move_error;
 }
 
 Board Board::operator=(const Board& other) const {
